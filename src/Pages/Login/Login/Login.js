@@ -8,7 +8,7 @@ import useToken from '../../../hooks/useToken';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, googleLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
@@ -38,9 +38,44 @@ const Login = () => {
             });
     }
 
+    const handleGoogleSignIn = () => {
+        googleLogin()
+            .then(result => {
+                const user = result.user;
+                const name = user.displayName
+                const email = user.email;
+                const role = 'buyer'
+                console.log(name, email, role);
+                saveUser(name, email, role)
+                toast.success('successfully login')
+            })
+            .catch(error => {
+                console.log(error)
+                setLoginError(error.message);
+                
+            });
+    }
+
+
+    const saveUser = (name, email, role) =>{
+        const user ={name, email, role};
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            
+            
+        })
+    }
+
     return (
         <div className='h-[800px] flex justify-center items-center '>
-            <div className='w-96 p-7 border-4 border-[#029841]'>
+            <div className='w-96 p-7 border-2 border-[#029841]'>
                 <h2 className='text-xl text-center'>Login</h2>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full max-w-xs">
@@ -70,7 +105,7 @@ const Login = () => {
                 </form>
                 <p className='my-3'>New to Ms Cooling <Link className='text-[#029841]' to="/signup">Create new Account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline hover:bg-[#029841] w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline hover:bg-[#029841] w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

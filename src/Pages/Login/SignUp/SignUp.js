@@ -42,7 +42,13 @@ const SignUp = () => {
 
     const handleGoogleSignIn = () => {
         googleLogin()
-            .then(() => {
+            .then(result => {
+                const user = result.user;
+                const name = user.displayName
+                const email = user.email;
+                const role = 'buyer'
+                console.log(name, email, role);
+                saveUser(name, email, role)
                 toast.success('successfully login')
             })
             .catch(error => {
