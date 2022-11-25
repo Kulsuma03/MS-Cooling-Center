@@ -3,21 +3,22 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useToken from '../../../hooks/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, googleLogin } = useContext(AuthContext);
     const [signUpError, setSignUPError] = useState('');
-    // const [createdUserEmail, setCreatedUserEmail] = useState('')
-    // const [token] = useToken(createdUserEmail);
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
 
-    // if(token){
-    //     navigate('/');
-    // }
+    if(token){
+        navigate('/');
+    }
 
     const handleSignUp = (data) => {
-        console.log(data);
+        // console.log(data.role);
         setSignUPError('');
         createUser(data.email, data.password)
             .then(result => {
@@ -29,7 +30,7 @@ const SignUp = () => {
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        // saveUser(data.name, data.email);
+                        saveUser(data.name, data.email, data.role);
                     })
                     .catch(err => console.log(err));
             })
@@ -50,20 +51,21 @@ const SignUp = () => {
             });
     }
 
-    // const saveUser = (name, email) =>{
-    //     const user ={name, email};
-    //     fetch('https://doctors-portal-server-rust.vercel.app/users', {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //     .then(res => res.json())
-    //     .then(data =>{
-    //         setCreatedUserEmail(email);
-    //     })
-    // }
+    const saveUser = (name, email, role) =>{
+        const user ={name, email, role};
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            setCreatedUserEmail(email);
+            
+        })
+    }
 
 
 
