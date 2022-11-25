@@ -39,8 +39,8 @@ const Login = () => {
     }
 
     return (
-        <div className='h-[800px] flex justify-center items-center'>
-            <div className='w-96 p-7'>
+        <div className='h-[800px] flex justify-center items-center '>
+            <div className='w-96 p-7 border-4 border-[#029841]'>
                 <h2 className='text-xl text-center'>Login</h2>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full max-w-xs">
@@ -63,14 +63,14 @@ const Login = () => {
                         <label className="label"> <span className="label-text">Forget Password?</span></label>
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
-                    <input className='btn btn-accent w-full' value="Login" type="submit" />
+                    <input className='mb-2 bg-[#029841] hover:bg-white hover:text-[#029841] btn btn-accent w-full' value="Login" type="submit" />
                     <div>
                         {loginError && <p className='text-red-600'>{loginError}</p>}
                     </div>
                 </form>
-                <p>New to Ms Cooling <Link className='text-secondary' to="/signup">Create new Account</Link></p>
+                <p className='my-3'>New to Ms Cooling <Link className='text-[#029841]' to="/signup">Create new Account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button className='btn btn-outline hover:bg-[#029841] w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
