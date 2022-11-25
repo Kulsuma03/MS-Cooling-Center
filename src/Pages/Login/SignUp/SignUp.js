@@ -71,7 +71,7 @@ const SignUp = () => {
 
     return (
         <div className='h-[800px] flex justify-center items-center'>
-            <div className='w-96 p-7'>
+            <div className='w-96 p-7 border-2 border-[#029841] bg-gray-100'>
                 <h2 className='text-xl text-center'>Sign Up</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
                     <div className="form-control w-full max-w-xs">
@@ -109,13 +109,13 @@ const SignUp = () => {
                             <option>seller</option>
                         </select>
                     </div>
-                    <input className='btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
+                    <input className='mb-2 bg-[#029841] hover:bg-white hover:text-[#029841]  btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
 
                 </form>
                 <p>Already have an account <Link className='text-secondary' to="/login">Please Login</Link></p>
                 <div className="divider">OR</div>
-                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn hover:bg-[#029841] btn-outline w-full'>CONTINUE WITH GOOGLE</button>
 
             </div>
         </div>
