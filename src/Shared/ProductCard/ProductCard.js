@@ -1,7 +1,40 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const ProductCard = ({ product, setProduct }) => {
-  const { img, categoryId, sellerName, originalPrice, location, name, price, date, used } = product;
+  const { img, categoryId, categoryName, sellerName, originalPrice, location, name, price, date, used } = product;
+
+  const handleWishList = () => {
+    console.log('wishlist');
+    
+    const wishlist = {
+      name, 
+      price,
+      used,
+      img,
+      categoryId, 
+      categoryName,
+  }
+    fetch('http://localhost:5000/wishlist', {
+      method: 'POST',
+      headers: {
+          'content-type': 'application/json'
+      },
+      body: JSON.stringify(wishlist)
+  })
+      .then(res => res.json())
+      .then(data => {
+          console.log(data);
+          if (data.acknowledged) {
+              toast.success('successfully add to wish list');
+          }
+          else{
+              toast.error(data.message);
+          }
+      })
+
+  }
+
   return (
     <div>
 
@@ -29,14 +62,8 @@ const ProductCard = ({ product, setProduct }) => {
               onClick={() => setProduct(product)}
               htmlFor="booking-modal"
               className="mr-4 bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border">Book Now</label>
-            <button
-
-
-
-              className=''>
-              Book Now
-            </button>
-            <button className='bg-white px-7 py-3 text-[#02AA49] hover:text-white hover:bg-[#02AA49] border'>wishList</button>
+            
+            <button onClick={handleWishList} className='bg-white px-7 py-3 text-[#02AA49] hover:text-white hover:bg-[#02AA49] border'>wishList</button>
           </div>
         </div>
       </div>

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
+import BookingModal from '../../Shared/BookingModal/BookingModal';
 import Loading from '../../Shared/Loading/Loading';
 import ProductCard from '../../Shared/ProductCard/ProductCard';
 
 const AllProduct = () => {
     const allProduct = useLoaderData([]);
     const navigation = useNavigation();
-    console.log(allProduct);
+    const [product, setProduct] = useState(null);
+    // console.log(allProduct);
 
     if(navigation.state === 'loading'){
         return <Loading></Loading>;
@@ -21,11 +23,21 @@ const AllProduct = () => {
             allProduct.map(product => <ProductCard
             key={product._id}
             product={product}
+            setProduct={setProduct}
             ></ProductCard>)
          }
           
           
         </div>
+        <div>
+                {
+                    product &&
+                    <BookingModal
+                        product={product}
+                        setProduct={setProduct}
+                    ></BookingModal>
+                }
+            </div>
       </div>
         </div>
     );

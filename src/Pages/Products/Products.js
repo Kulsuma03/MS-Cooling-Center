@@ -6,7 +6,7 @@ import ProductCard from '../../Shared/ProductCard/ProductCard';
 
 
 const Products = () => {
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState(null);
     console.log(product);
     const products = useLoaderData([]);
     const navigation = useNavigation();
@@ -35,6 +35,7 @@ const Products = () => {
                     product &&
                     <BookingModal
                         product={product}
+                        setProduct={setProduct}
                     ></BookingModal>
                 }
             </div>
