@@ -36,6 +36,7 @@ const AuthProvider = ({children}) => {
         return updateProfile(auth.currentUser, userInfo);
     }
 
+    // user update 
     const logOut = () =>{
         setLoading(true);
         return signOut(auth);
@@ -76,7 +77,7 @@ const AuthProvider = ({children}) => {
         categories,
         googleLogin
     }
-    
+
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

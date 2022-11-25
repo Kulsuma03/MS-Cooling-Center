@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setProduct }) => {
   const { img, categoryId, sellerName, originalPrice, location, name, price, date, used } = product;
   return (
     <div>
@@ -25,8 +25,18 @@ const ProductCard = ({ product }) => {
             <p> Post published: {date} </p>
           </div>
           <div className='mt-3'>
-             <button className='mr-4 bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border'>Book Now</button>
-             <button className='bg-white px-7 py-3 text-[#02AA49] hover:text-white hover:bg-[#02AA49] border'>wishList</button>
+            <label
+              onClick={() => setProduct(product)}
+              htmlFor="booking-modal"
+              className="mr-4 bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border">Book Now</label>
+            <button
+
+
+
+              className=''>
+              Book Now
+            </button>
+            <button className='bg-white px-7 py-3 text-[#02AA49] hover:text-white hover:bg-[#02AA49] border'>wishList</button>
           </div>
         </div>
       </div>
