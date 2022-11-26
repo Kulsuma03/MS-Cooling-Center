@@ -1,4 +1,3 @@
-import userEvent from '@testing-library/user-event';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -57,7 +56,7 @@ const ProductCard = ({ product, setProduct }) => {
           <div className="">
             <p> Original price: <span className='text-orange-500 font-bold'>${originalPrice}</span></p>
             <p> Current Price: <span className='text-orange-500 font-bold'>${price}</span></p>
-            <p> Has been used: {used} year.</p>
+            <p> Has been used: {used? used : 1} year.</p>
             <p> Post published: {date} </p>
           </div>
           <div className='mt-5'>

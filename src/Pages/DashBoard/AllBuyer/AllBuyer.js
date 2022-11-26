@@ -1,9 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaRegTrashAlt } from "react-icons/fa";
+import DeleteModal from '../../../Shared/DeleteModal/DeleteModal';
 
 const AllBuyer = () => {
+
+    const [deletingUser, setDeletingUser] = useState(null);
+
+    const closeModal = () => {
+        setDeletingUser(null);
+    }
+
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['allbuyer'],
         queryFn: async () => {
@@ -57,12 +65,28 @@ const AllBuyer = () => {
                                 }
                             </td> */}
                             <td>
-                                <FaRegTrashAlt onClick={() => handleDeleteUser(buyer)} title='delete buyer' className='text-red-400 text-3xl md:text-4xl'></FaRegTrashAlt>
+                            <label 
+                                    onClick={() => setDeletingUser(buyer)} htmlFor="confirmation-modal">
+                                    <FaRegTrashAlt  title='delete seller' className='text-red-400 text-3xl md:text-4xl'></FaRegTrashAlt>
+                                    </label>
                             </td>
                         </tr>)
                     }
                 </tbody>
             </table>
+            <div>
+                    {
+                        deletingUser && 
+                        <DeleteModal
+                        title={`Are you sure you want to delete?`}
+                    message={`If you delete ${deletingUser.name}. It cannot be undone.`}
+                    successAction = {handleDeleteUser}
+                    successButtonName="Delete"
+                    modalData = {deletingUser}
+                    closeModal = {closeModal}
+                        ></DeleteModal>
+                    }
+                </div>
         </div>
     );
 };

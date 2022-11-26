@@ -5,7 +5,6 @@ import logo from '../../assets/logo.jpg'
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    console.log(user?.displayName);
 
     const handleLogOut = () => {
         logOut()

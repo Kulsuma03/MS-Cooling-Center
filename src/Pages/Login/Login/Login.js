@@ -28,7 +28,6 @@ const Login = () => {
         setLoginError('');
         signIn(data.email, data.password)
             .then(result => {
-                const user = result.user;
                 toast.success('Login successfully')
                 setLoginUserEmail(data.email);
             })

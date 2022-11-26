@@ -81,7 +81,7 @@ const WishlistData = () => {
                                         <img src={order.img} alt="" />
                                     </div>
                                 </div></td>
-                                <td><span className='w-32'>{order.productName.length > 20 ? order.productName.slice(9, 20) + '...' : order.productName}</span></td>
+                                <td><span title={order.productName} className='w-32'>{order.productName.length > 20 ? order.productName.slice(9, 20) + '...' : order.productName}</span></td>
 
                                 <th>${order.price}</th>
                                 <td>

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios'
+import React, { useContext} from 'react';
 import CategoryCard from './CategoryCard';
 import Loading from '../../../Shared/Loading/Loading';
 import { AuthContext } from '../../../contexts/AuthProvider';
