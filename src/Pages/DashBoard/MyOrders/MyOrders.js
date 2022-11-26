@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 const MyOrders = () => {
+
     const {data: orders = [], refetch} = useQuery({
         queryKey: ['orders'],
         queryFn: async() =>{
@@ -10,7 +11,7 @@ const MyOrders = () => {
             return data;
         }
     });
-    console.log(orders);
+  
     
     return (
         <div>
@@ -31,11 +32,11 @@ const MyOrders = () => {
                                 
                                 <th>{i + 1}</th>
                                 <td><div className="avatar">
-                                    <div className="w-20 rounded-full">
+                                    <div className="w-14 md:w-20 rounded-full">
                                         <img src={order.img} alt="" />
                                     </div>
                                 </div></td>
-                                <td><span className='w-32'>{order.productName.length > 20 ? order.productName.slice(9, 20)+ '...' : order.productName}</span></td>
+                                <td><span  title={order.productName} className='w-32'>{order.productName.length > 20 ? order.productName.slice(9, 20)+ '...' : order.productName}</span></td>
                                 
                                 <th>${order.price}</th>
                                 <td>
