@@ -21,7 +21,7 @@ const MyOrders = () => {
                             <th></th>
                             <th>Avatar</th>
                             <th>Name</th>
-                            <th>Title</th>
+                            <th>Price</th>
                             <th>Payment</th>
                         </tr>
                     </thead>

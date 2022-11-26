@@ -8,7 +8,7 @@ const ProductCard = ({ product, setProduct }) => {
     console.log('wishlist');
     
     const wishlist = {
-      name, 
+      productName:name, 
       price,
       used,
       img,
