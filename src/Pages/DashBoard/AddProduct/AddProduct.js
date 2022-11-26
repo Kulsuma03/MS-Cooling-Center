@@ -51,7 +51,10 @@ const AddProduct = () => {
                     originalPrice: data.originalPrice,
                     date: data.date,
                     price: data.price,
-                    used: data.used
+                    used: data.used,
+                    phone: data.phone,
+                    condition: data.condition,
+                    about: data.about
                 }
                 console.log(product);
 
@@ -67,7 +70,7 @@ const AddProduct = () => {
                 .then(res => res.json())
                 .then(result =>{
                     console.log(result);
-                    toast.success(`${data.name} is added successfully`);
+                    toast.success(`${data.pname} is added successfully`);
                     navigate('/dashboard/myproducts')
                 })
             }
@@ -81,7 +84,7 @@ const AddProduct = () => {
     return (
         <div className='w-full p-7 bg-slate-200'>
             <h2 className="text-4xl">Add A Doctor</h2>
-            <form className='grid grid-cols-2' onSubmit={handleSubmit(handleAddProduct)}>
+            <form className='grid grid-cols-1 w-full md:grid-cols-2' onSubmit={handleSubmit(handleAddProduct)}>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Seller Name</span></label>
                     <input  type="text" disabled {...register("sellerName", {
@@ -90,7 +93,7 @@ const AddProduct = () => {
                     {errors.sellerName && <p className='text-red-500'>{errors.sellerName.message}</p>}
                 </div>
                 <div className="form-control w-full max-w-xs">
-                    <label className="label"> <span className="label-text">Seller Name</span></label>
+                    <label className="label"> <span className="label-text">Publish Date</span></label>
                     <input disabled type="text" {...register("date", {
                         required: " Name is Required"
                     })} className="input input-bordered w-full max-w-xs" />
@@ -119,11 +122,18 @@ const AddProduct = () => {
                     {errors.price && <p className='text-red-500'>{errors.price.message}</p>}
                 </div>
                 <div className="form-control w-full max-w-xs">
-                    <label className="label"> <span className="label-text">Have been Used</span></label>
+                    <label className="label"> <span className="label-text">Year of purchase</span></label>
                     <input type="text" {...register("used", {
                         required: "filed is Required"
                     })} className="input input-bordered w-full max-w-xs" />
                     {errors.price && <p className='text-red-500'>{errors.price.message}</p>}
+                </div>
+                <div className="form-control w-full max-w-xs">
+                    <label className="label"> <span className="label-text">Contact</span></label>
+                    <input type="text" {...register("phone", {
+                        required: "phone is Required"
+                    })} className="input input-bordered w-full max-w-xs" />
+                    {errors.phone && <p className='text-red-500'>{errors.phone.message}</p>}
                 </div>
 
 
@@ -168,16 +178,39 @@ const AddProduct = () => {
                     </select>
                     {errors.categoryId && <p className='text-red-500'>{errors.categoryId.message}</p>}
                 </div>
+                <div className="form-control w-full max-w-xs">
+                    <label className="label"> <span className="label-text">condition</span></label>
+                    <select 
+                    {...register('condition', {
+                        required: true
+                    })}
+                    className="select input-bordered w-full max-w-xs">
+                      <option selected>good</option>
+                      <option >excellent</option>
+                      <option >fair</option>
+                                    
+                        
+                    </select>
+                    {errors.condition && <p className='text-red-500'>{errors.condition.message}</p>}
+                </div>
                 
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Photo</span></label>
                     <input type="file" {...register("image", {
                         required: "Photo is Required"
-                    })} className="input input-bordered w-full max-w-xs" />
+                    })} className="input input-bordered w-full " />
                     {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
+                </div>
+                <div className="form-control col-span-full max-w-xs">
+                    <label className="label"> <span className="label-text">Description</span></label>
+                    <textarea name="about product" cols="30" rows="10" {...register("about", {
+                        required: "Description is Required"
+                    })} className="input input-bordered w-full " />
+                    {errors.about && <p className='text-red-500'>{errors.about.message}</p>}
                 </div>
                 <input className='btn bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border w-full mt-4' value="Add Doctor" type="submit" />
             </form>
+            
         </div>
     );
 };
