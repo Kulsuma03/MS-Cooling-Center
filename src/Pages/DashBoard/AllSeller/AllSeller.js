@@ -1,9 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import { FaRegTrashAlt } from "react-icons/fa";
 import { GoUnverified, GoVerified } from "react-icons/go";
+import DeleteModal from '../../../Shared/DeleteModal/DeleteModal';
 
 const AllSeller = () => {
+    const [deletingUser, setDeletingUser] = useState(null);
+
+    const closeModal = () => {
+        setDeletingUser(null);
+    }
 
     const {data: sellers = [], refetch} = useQuery({
         queryKey: ['allseller'],
@@ -13,7 +20,24 @@ const AllSeller = () => {
             return data;
         }
     });
-    console.log(sellers);
+
+    const handleDeleteUser = user => {
+        fetch(`http://localhost:5000/user/${user._id}`, {
+            method: 'DELETE', 
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                refetch();
+                toast.success(`Seller ${user.name} deleted successfully`)
+            }
+        })
+    }
+   
+
     return (
         <div>
              <table className="table w-full">
@@ -37,18 +61,36 @@ const AllSeller = () => {
                                 <td>
                                     {
                                         !seller.verify ?
-                                        <GoUnverified className='text-[#01AA45] text-3xl md:text-4xl '></GoUnverified>
+                                        <GoUnverified title='Click to Verify seller' className='text-[#01AA45] text-3xl md:text-4xl '></GoUnverified>
                                         : 
-                                        <GoVerified className='text-[#01AA45] text-3xl md:text-4xl'></GoVerified>
+                                        <GoVerified title='verify seller' className='text-[#01AA45] text-3xl md:text-4xl'></GoVerified>
                                     }
                                 </td>
                                 <td>
-                                    <FaRegTrashAlt className='text-red-400 text-3xl md:text-4xl'></FaRegTrashAlt>
+                                    <label 
+                                    onClick={() => setDeletingUser(seller)} htmlFor="confirmation-modal">
+                                    <FaRegTrashAlt  title='delete seller' className='text-red-400 text-3xl md:text-4xl'></FaRegTrashAlt>
+                                    </label>
+                                    
                                 </td>
                             </tr>)
                         }
                     </tbody>
                 </table>
+
+                <div>
+                    {
+                        deletingUser && 
+                        <DeleteModal
+                        title={`Are you sure you want to delete?`}
+                    message={`If you delete ${deletingUser.name}. It cannot be undone.`}
+                    successAction = {handleDeleteUser}
+                    successButtonName="Delete"
+                    modalData = {deletingUser}
+                    closeModal = {closeModal}
+                        ></DeleteModal>
+                    }
+                </div>
         </div>
     );
 };

@@ -1,7 +1,10 @@
-import React from 'react';
+import userEvent from '@testing-library/user-event';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const ProductCard = ({ product, setProduct }) => {
+  const {user} = useContext(AuthContext)
   const { img, categoryId, categoryName, sellerName, originalPrice, location, name, price, date, used } = product;
 
   const handleWishList = () => {
@@ -57,13 +60,15 @@ const ProductCard = ({ product, setProduct }) => {
             <p> Has been used: {used} year.</p>
             <p> Post published: {date} </p>
           </div>
-          <div className='mt-3'>
+          <div className='mt-5'>
             <label
               onClick={() => setProduct(product)}
               htmlFor="booking-modal"
               className="mr-4 bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border">Book Now</label>
             
-            <button onClick={handleWishList} className='bg-white px-7 py-3 text-[#02AA49] hover:text-white hover:bg-[#02AA49] border'>wishList</button>
+            {
+              user?.uid && <button onClick={handleWishList} className='bg-white px-7 py-3 text-[#02AA49] hover:text-white hover:bg-[#02AA49] border'>wishList</button>
+            }
           </div>
         </div>
       </div>

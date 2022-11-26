@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const BookingModal = ({ product, setProduct }) => {
@@ -12,7 +13,7 @@ const BookingModal = ({ product, setProduct }) => {
         event.preventDefault();
         const form = event.target;
 
-        
+
         const userName = form.userName.value;
         const location = form.location.value;
         const email = form.email.value;
@@ -43,7 +44,7 @@ const BookingModal = ({ product, setProduct }) => {
                     toast.success('Booking confirmed');
                     // refetch();
                 }
-                else{
+                else {
                     toast.error(data.message);
                 }
             })
@@ -62,9 +63,20 @@ const BookingModal = ({ product, setProduct }) => {
                     </h3>
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" disabled value={name} className="input w-full input-bordered " />
-                        <input type="text" disabled value= {price ? '$'+price : ''} className="input w-full input-bordered " />
-                        <input name="userName" type="text" defaultValue={user?.displayName} disabled placeholder="Your Name" className="input w-full input-bordered" />
-                        <input  name="email" type="email" defaultValue={user?.email} disabled placeholder="Email Address" className="input w-full input-bordered" />
+                        <input type="text" disabled value={price ? '$' + price : ''} className="input w-full input-bordered " />
+
+                        {
+                            user?.uid
+                                ?
+                                <>
+                                    <input name="userName" type="text" defaultValue={user?.displayName} disabled placeholder="Your Name" className="input w-full input-bordered" />
+                                    <input name="email" type="email" defaultValue={user?.email} disabled placeholder="Email Address" className="input w-full input-bordered" />
+                                </>
+                                :
+                                <p>If You want Booking 
+                                    <Link className='text-orange-500' to='/login'> Please Login</Link></p>
+                        }
+
                         <input required name="phone" type="text" placeholder="Phone Number" className="input w-full input-bordered" />
                         <input required name="location" type="text" placeholder="Location" className="input w-full input-bordered " />
                         <br />
