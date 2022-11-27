@@ -12,7 +12,8 @@ const AddProduct = () => {
     const datee = new Date().toLocaleString('en-GB')
     const preLoaderValues = {
         sellerName: user?.displayName,
-        date:datee
+        date:datee,
+        email: user.email
     }
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: preLoaderValues
@@ -54,7 +55,8 @@ const AddProduct = () => {
                     used: data.used,
                     phone: data.phone,
                     condition: data.condition,
-                    about: data.about
+                    about: data.about,
+                    email: data.email
                 }
                 console.log(product);
 
@@ -201,14 +203,21 @@ const AddProduct = () => {
                     })} className="input input-bordered w-full " />
                     {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
                 </div>
-                <div className="form-control col-span-full max-w-xs">
+                <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Description</span></label>
                     <textarea name="about product" cols="30" rows="10" {...register("about", {
                         required: "Description is Required"
                     })} className="input input-bordered w-full " />
                     {errors.about && <p className='text-red-500'>{errors.about.message}</p>}
                 </div>
-                <input className='btn bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border w-full mt-4' value="Add Doctor" type="submit" />
+                <div className="form-control w-full max-w-xs">
+                    <label className="label"> <span className="label-text">Description</span></label>
+                    <textarea name="about product" cols="30" rows="10" {...register("email", {
+                        required: "Description is Required"
+                    })} className="input input-bordered w-full " />
+                    {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+                </div>
+                <input className='btn bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border w-full mt-4' value="Add A Product" type="submit" />
             </form>
             
         </div>

@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const ProductCard = ({ product, setProduct }) => {
   const { user } = useContext(AuthContext)
-  const { img, categoryId, categoryName, sellerName, originalPrice, location, name, price, date, used, phone, condition, about } = product;
+  const { img, categoryId, categoryName, sellerName, originalPrice, location, name, price, date, used, phone, condition, about , paid, _id} = product;
 
   const handleWishList = () => {
     console.log('wishlist');
@@ -14,8 +14,10 @@ const ProductCard = ({ product, setProduct }) => {
       price,
       used,
       img,
-      categoryId,
-      categoryName,
+      categoryId, 
+      categoryName, 
+      productId: _id,
+      wishList: true
     }
     fetch('http://localhost:5000/wishlist', {
       method: 'POST',
@@ -58,7 +60,11 @@ const ProductCard = ({ product, setProduct }) => {
             <p>Contact: {phone ? phone : '12385453'}</p>
             <p> Original price: <span className='text-orange-500 font-bold'>${originalPrice}</span></p>
             <p> Post published: {date} </p>
-            <p> Resale Price: <span className='text-orange-500 font-bold'>${price}</span></p>
+            <p> 
+              Resale Price: 
+              <span className='text-orange-500 font-bold'>${price}</span> 
+              <span className='text-red-500'> {paid && '(Sold OUt)'}</span>
+              </p>
             <p> years of use: {used ? used : 1} {parseInt(used) > 1 ? 'years' : 'year'}. </p>
             <p>Condition: {condition ? condition : 'good'}</p>
 

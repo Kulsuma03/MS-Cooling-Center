@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const WishlistData = () => {
 
@@ -13,49 +14,52 @@ const WishlistData = () => {
         }
     });
 
-    const handlePurchase = (order) => {
-        const {productName, price, img} = order;
+    console.log(wishlist);
 
-        const booking = {
-            productName,
-            price,
-            img,
+    // const handlePurchase = (order) => {
+    //     const {productName, price, img, productId} = order;
+
+    //     const booking = {
+    //         productName,
+    //         price,
+    //         img,
+    //         productId
             
-        }
+    //     }
 
-        fetch('http://localhost:5000/bookings', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(booking)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data.acknowledged) {
-                    console.log('hello');
-                }
-                else{
-                    toast.error(data.message);
-                }
-            })
+    //     fetch('http://localhost:5000/bookings', {
+    //         method: 'POST',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(booking)
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             if (data.acknowledged) {
+    //                 console.log('hello');
+    //             }
+    //             else{
+    //                 toast.error(data.message);
+    //             }
+    //         })
 
-        console.log(' poi');
-        fetch(`http://localhost:5000/wishlist/${order._id}`, {
-            method: 'PUT',
-            headers: {
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount > 0) {
-                    toast.success('Purchase successful.')
-                    refetch();
-                }
-            })
-    }
+     
+    //     fetch(`http://localhost:5000/wishlist/${order._id}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             authorization: `bearer ${localStorage.getItem('accessToken')}`
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if (data.modifiedCount > 0) {
+    //                 toast.success('Purchase successful.')
+    //                 refetch();
+    //             }
+    //         })
+    // }
 
     return (
         <div>
@@ -81,11 +85,24 @@ const WishlistData = () => {
                                         <img src={order.img} alt="" />
                                     </div>
                                 </div></td>
-                                <td><span title={order.productName} className='w-32'>{order.productName.length > 20 ? order.productName.slice(9, 20) + '...' : order.productName}</span></td>
+                                <td><span title={order.productName} className='w-32'>{order?.productName?.length > 20 ? order?.productName?.slice(9, 20) + '...' : order.productName}</span></td>
 
                                 <th>${order.price}</th>
+                                
                                 <td>
-                                    <button onClick={() => handlePurchase(order)} className="px-3 py-[10px] text-white hover:text-[#02AA49] hover:bg-white hover:border bg-[#029841]">Purchase Now</button>
+
+                                {
+                                        order.price && !order.paid && <Link
+                                            to={`/dashboard/payment/${order._id}`}
+                                        >
+                                            <button
+                                                className='px-3 py-2 text-white hover:text-[#02AA49] hover:bg-white hover:border bg-[#029841]'
+                                            >Purchase Now</button>
+                                        </Link>
+                                    }
+                                    {
+                                        order.price && order.paid && <span className='text-green-500'>Already Purchase</span>
+                                    }
                                 </td>
                             </tr>)
                     }
@@ -96,3 +113,4 @@ const WishlistData = () => {
 };
 
 export default WishlistData;
+

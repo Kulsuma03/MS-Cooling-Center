@@ -1,26 +1,84 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { FaRegTrashAlt } from "react-icons/fa";
+import toast from 'react-hot-toast';
+import Loading from '../../../Shared/Loading/Loading';
+import DeleteModal from '../../../Shared/DeleteModal/DeleteModal';
+import { useQuery } from '@tanstack/react-query';
+import Advertised from '../../Home/Advertised/Advertised';
 
 const MyProducts = () => { 
-    const [loading, setLoading] = useState(false);
-    const [products, setProducts] = useState([]);
     const [deletingUser, setDeletingUser] = useState(null);
-    const {user} = useContext(AuthContext)
+    const {user} = useContext(AuthContext);
 
-    ///product/:name
+    const closeModal = () => {
+        setDeletingUser(null);
+    }
 
-    useEffect(() => {
-        setLoading(true)
-        fetch(`http://localhost:5000/product/${user.displayName}`)
+
+
+    const url = `http://localhost:5000/product/${user.email}`;
+
+    const { data: orders = [], refetch, Loading } = useQuery({
+        queryKey: ['orders', user?.email],
+        queryFn: async () => {
+            const res = await fetch(url, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            const data = await res.json();
+            
+            return data;
+        }
+    })
+
+
+    // post advertise data 
+    
+    const handleAdvertise = product => {
+       
+        fetch(`http://localhost:5000/advertise/${product._id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    console.log('woe');
+                    refetch()
+                    toast.success('Advertise successfully');
+                    
+                }
+            })
+    }
+
+    // handle delete
+
+    
+    const handleDeleteUser = product => {
+
+        fetch(`http://localhost:5000/product/${product._id}`, {
+            method: 'DELETE', 
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
-            setProducts(data)
-            setLoading(false)
+            if(data.deletedCount > 0){
+                refetch();
+                toast.success('product deleted successfully')
+            }
         })
-    },[user?.displayName]);
+    }
 
+    if(Loading){
+        return <Loading></Loading>
+    }
     
     return (
         <div>
@@ -38,7 +96,7 @@ const MyProducts = () => {
                     </thead>
                     <tbody>
                         {
-                            products.map((product, i) => <tr key={product._id}>
+                            orders.map((product, i) => <tr key={product._id}>
                                 
                                 <th>{i + 1}</th>
                                 <td><div className="avatar">
@@ -50,11 +108,15 @@ const MyProducts = () => {
 
                                 <th>${product.price}</th>
                                 <td>
-                                    {product?.paid? 'Sold' : 'Available'}
+                                    {product.paid? 'sold' : 'Available'}
                                 </td>
                                 <td>
                                     <label>
-                                    <button className=''>Advertise</button>
+                                    <button
+                                    disabled={product.advertise}
+                                     onClick={() => handleAdvertise(product)} className=''>
+                                        Advertise
+                                        </button>
                                     </label>
                                     
                                 </td>
@@ -70,6 +132,20 @@ const MyProducts = () => {
                         }
                     </tbody>
                 </table>
+
+                <div>
+                    {
+                        deletingUser && 
+                        <DeleteModal
+                        title={`Are you sure you want to delete?`}
+                    message={`If you delete ${deletingUser.name}. It cannot be undone.`}
+                    successAction = {handleDeleteUser}
+                    successButtonName="Delete"
+                    modalData = {deletingUser}
+                    closeModal = {closeModal}
+                        ></DeleteModal>
+                    }
+                </div>
         </div>
     );
 };
