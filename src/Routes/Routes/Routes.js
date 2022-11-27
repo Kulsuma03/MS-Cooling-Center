@@ -17,6 +17,7 @@ import SignUp from "../../Pages/Login/SignUp/SignUp";
 import Products from "../../Pages/Products/Products";
 import DisplayError from "../../Shared/DisplayError/DisplayError";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AdminRoute from "./AdminRoute/AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -31,12 +32,12 @@ export const router = createBrowserRouter([
             {
                 path: '/products/:id',
                 loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`),
-                element: <Products></Products>
+                element: <PrivateRoute><Products></Products></PrivateRoute>
             },
             {
                 path: '/allproduct',
                 loader: () => fetch('http://localhost:5000/allproduct'),
-                element: <AllProduct></AllProduct>
+                element:<PrivateRoute> <AllProduct></AllProduct></PrivateRoute>
             },
             {
                 path: '/login',
@@ -58,11 +59,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allseller',
-                element: <AllSeller></AllSeller>
+                element: <AdminRoute><AllSeller></AllSeller></AdminRoute>
             },
             {
                 path: '/dashboard/allbuyer',
-                element: <AllBuyer></AllBuyer>
+                element: <AdminRoute><AllBuyer></AllBuyer></AdminRoute>
             },
             {
                 path: '/dashboard/myorders',

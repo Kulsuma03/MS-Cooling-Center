@@ -1,11 +1,17 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import useAdmin from '../hooks/useAdmin';
+import useSeller from '../hooks/useSeller';
 import Navbar from '../Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
-    // const [isAdmin] = useAdmin(user?.email)
+    const [isAdmin] = useAdmin(user?.email);
+    const [isSeller] = useSeller(user?.email);
+    // const [IsBuyer] = useBuyer(user?.email);
+
+    console.log(user.email);
     return (
         <div>
             <Navbar></Navbar>
@@ -19,14 +25,28 @@ const DashboardLayout = () => {
                     <ul className="menu p-4 w-64 font-bold text-base-content">
                         {
                             user && <>
-                                <li className='hover:text-[#00873A]'><Link to="/dashboard/allseller">All Seller</Link></li>
-                                <li className='hover:text-[#00873A]'><Link to="/dashboard/allbuyer">All Buyer</Link></li>
-                                <li className='hover:text-[#00873A]'><Link to="/dashboard/myorders">My Orders</Link></li>
-                                <li className='hover:text-[#00873A]'><Link to="/dashboard/mywishlist">My WishList</Link></li>
-                                <li className='hover:text-[#00873A]'><Link to="/dashboard/myproducts">My Products</Link></li>
-                                <li className='hover:text-[#00873A]'><Link to="/dashboard/mybuyers">My Buyers</Link></li>
-                                <li className='hover:text-[#00873A]'><Link to="/dashboard/addproduct">Add Product</Link></li>
-                                
+                                {
+                                    isAdmin &&
+                                    <> <li className='hover:text-[#00873A]'><Link to="/dashboard/allseller">All Seller</Link></li>
+                                        <li className='hover:text-[#00873A]'><Link to="/dashboard/allbuyer">All Buyer</Link></li></>
+                                }
+                                {
+                                    isSeller &&
+                                    <>
+                                        <li className='hover:text-[#00873A]'><Link to="/dashboard/myproducts">My Products</Link></li>
+                                        <li className='hover:text-[#00873A]'><Link to="/dashboard/mybuyers">My Buyers</Link></li>
+                                        <li className='hover:text-[#00873A]'><Link to="/dashboard/addproduct">Add Product</Link></li>
+                                    </>
+                                }
+                                {
+                                    !isAdmin && !isSeller &&
+                                    <>
+                                        <li className='hover:text-[#00873A]'><Link to="/dashboard/myorders">My Orders</Link></li>
+                                        <li className='hover:text-[#00873A]'><Link to="/dashboard/mywishlist">My WishList</Link></li>
+                                    </>
+                                }
+
+
                             </>
                         }
 

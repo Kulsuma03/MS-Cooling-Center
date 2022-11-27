@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
+import {  GoVerified } from "react-icons/go";
 
 const ProductCard = ({ product, setProduct }) => {
   const { user } = useContext(AuthContext)
-  const { img, categoryId, categoryName, sellerName, originalPrice, location, name, price, date, used, phone, condition, about , paid, _id} = product;
+  const { img, categoryId, categoryName, sellerName, originalPrice, location, name, price, date, used, phone, condition, about , paid, _id, verifySeller} = product;
 
   const handleWishList = () => {
     console.log('wishlist');
@@ -53,7 +54,12 @@ const ProductCard = ({ product, setProduct }) => {
           <p className="text-lg mb-3 font-bold"> {name}</p>
 
           <div className="grid md:grid-cols-2 text-start text-sky-800">
-            <p className="mb-4 text-xs text-gray-800">Seller: {sellerName}</p>
+            <p className="mb-4 flex items-center justify-start text-xs text-gray-800">
+              Seller: {sellerName} {
+                verifySeller && <GoVerified 
+                title='verify seller' className='text-[#01AA45] ml-1 text-xl'></GoVerified>
+              }
+            </p>
             <p title={location} className="mb-4 text-sm tracking-wide text-gray-800">
               Location: {location?.length > 20 ? location.slice(9, 30) + '...' : location}
             </p>

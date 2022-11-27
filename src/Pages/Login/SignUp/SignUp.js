@@ -49,6 +49,7 @@ const SignUp = () => {
                 const role = 'buyer'
                 console.log(name, email, role);
                 saveUser(name, email, role)
+                setCreatedUserEmail(email);
                 toast.success('successfully login')
             })
             .catch(error => {

@@ -45,7 +45,8 @@ const Login = () => {
                 const email = user.email;
                 const role = 'buyer'
                 console.log(name, email, role);
-                saveUser(name, email, role)
+                saveUser(name, email, role);
+                setLoginUserEmail(user.email)
                 toast.success('successfully login')
             })
             .catch(error => {
@@ -67,7 +68,7 @@ const Login = () => {
         })
         .then(res => res.json())
         .then(data =>{
-            
+            setLoginUserEmail(email)
             
         })
     }
