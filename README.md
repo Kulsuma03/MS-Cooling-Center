@@ -1,10 +1,10 @@
 # MS Cooling Center
 
-## Available Scripts
+## Live website link
 
 [MS Cooling Center](https://ms-cooling-point.web.app).
 
-## Available Scripts
+## IMPORTANT: 
 
 - adminEmail: mou@gmail.com
 - adminPassword: 123456
