@@ -33,12 +33,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/products/:id',
-                loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`),
+                loader: ({params}) => fetch(`https://assignment-12-server-liart.vercel.app/products/${params.id}`),
                 element: <PrivateRoute><Products></Products></PrivateRoute>
             },
             {
                 path: '/allproduct',
-                loader: () => fetch('http://localhost:5000/allproduct'),
+                loader: () => fetch('https://assignment-12-server-liart.vercel.app/allproduct'),
                 element:<PrivateRoute> <AllProduct></AllProduct></PrivateRoute>
             },
             {
@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <Payment></Payment>,
-                loader: ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader: ({params}) => fetch(`https://assignment-12-server-liart.vercel.app/bookings/${params.id}`)
             },
         ]
     }

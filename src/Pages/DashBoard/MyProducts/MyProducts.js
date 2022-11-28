@@ -17,7 +17,7 @@ const MyProducts = () => {
 
 
 
-    const url = `http://localhost:5000/product/${user.email}`;
+    const url = `https://assignment-12-server-liart.vercel.app/product/${user.email}`;
 
     const { data: orders = [], refetch, Loading } = useQuery({
         queryKey: ['orders', user?.email],
@@ -38,7 +38,7 @@ const MyProducts = () => {
     
     const handleAdvertise = product => {
        
-        fetch(`http://localhost:5000/advertise/${product._id}`, {
+        fetch(`https://assignment-12-server-liart.vercel.app/advertise/${product._id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -61,7 +61,7 @@ const MyProducts = () => {
     
     const handleDeleteUser = product => {
 
-        fetch(`http://localhost:5000/product/${product._id}`, {
+        fetch(`https://assignment-12-server-liart.vercel.app/product/${product._id}`, {
             method: 'DELETE', 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

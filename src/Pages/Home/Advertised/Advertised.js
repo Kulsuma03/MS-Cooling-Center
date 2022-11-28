@@ -12,7 +12,7 @@ const Advertised = () => {
 
     useEffect(() => {
         setDataLoading(true)
-        axios.get('http://localhost:5000/advertise', {
+        axios.get('https://assignment-12-server-liart.vercel.app/advertise', {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }

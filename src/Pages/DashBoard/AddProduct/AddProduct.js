@@ -61,7 +61,7 @@ const AddProduct = () => {
                 console.log(product);
 
                 // save doctor information to the database
-                fetch('http://localhost:5000/product', {
+                fetch('https://assignment-12-server-liart.vercel.app/product', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json', 

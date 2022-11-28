@@ -16,7 +16,7 @@ const AllSeller = () => {
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['allseller'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/dashboard/allseller',{
+            const res = await fetch('https://assignment-12-server-liart.vercel.app/dashboard/allseller',{
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -27,7 +27,7 @@ const AllSeller = () => {
     });
 
     const handleDeleteUser = user => {
-        fetch(`http://localhost:5000/user/${user._id}`, {
+        fetch(`https://assignment-12-server-liart.vercel.app/user/${user._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -43,7 +43,7 @@ const AllSeller = () => {
     }
 
     const handleVerify = data => {
-        fetch(`http://localhost:5000/verifyseller/${data?.email}`, {
+        fetch(`https://assignment-12-server-liart.vercel.app/verifyseller/${data?.email}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

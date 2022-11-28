@@ -2,7 +2,7 @@
 
 ## Available Scripts
 
-[MS Cooling Center](https://github.com/facebook/create-react-app).
+[MS Cooling Center](https://ms-cooling-point.web.app).
 
 ## Available Scripts
 

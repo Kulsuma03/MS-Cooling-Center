@@ -19,7 +19,7 @@ const CheckoutForm = ({ booking }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://assignment-12-server-liart.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const CheckoutForm = ({ booking }) => {
 
             // update products 
 
-            fetch(`http://localhost:5000/product/${productId}`, {
+            fetch(`https://assignment-12-server-liart.vercel.app/product/${productId}`, {
                 method: 'PUT',
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -104,7 +104,7 @@ const CheckoutForm = ({ booking }) => {
                 productName,
                 
             }
-            fetch('http://localhost:5000/payments', {
+            fetch('https://assignment-12-server-liart.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

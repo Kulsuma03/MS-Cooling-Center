@@ -8,7 +8,7 @@ const WishlistData = () => {
     const { data: wishlist = [], refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/wishlist', {
+            const res = await fetch('https://assignment-12-server-liart.vercel.app/wishlist', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -31,7 +31,7 @@ const WishlistData = () => {
             
     //     }
 
-    //     fetch('http://localhost:5000/bookings', {
+    //     fetch('https://assignment-12-server-liart.vercel.app/bookings', {
     //         method: 'POST',
     //         headers: {
     //             'content-type': 'application/json'
@@ -50,7 +50,7 @@ const WishlistData = () => {
     //         })
 
      
-    //     fetch(`http://localhost:5000/wishlist/${order._id}`, {
+    //     fetch(`https://assignment-12-server-liart.vercel.app/wishlist/${order._id}`, {
     //         method: 'PUT',
     //         headers: {
     //             authorization: `bearer ${localStorage.getItem('accessToken')}`

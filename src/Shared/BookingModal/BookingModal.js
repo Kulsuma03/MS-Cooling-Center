@@ -29,7 +29,7 @@ const BookingModal = ({ product, setProduct }) => {
             productId: _id
         }
 
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://assignment-12-server-liart.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -20,7 +20,7 @@ const AllProduct = () => {
         
         <div className="grid gap-10 mx-auto  lg:max-w-screen-lg">
          {
-            allProduct.map(product => <ProductCard
+            allProduct?.map(product => <ProductCard
             key={product._id}
             product={product}
             setProduct={setProduct}

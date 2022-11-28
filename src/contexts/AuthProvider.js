@@ -57,7 +57,7 @@ const AuthProvider = ({children}) => {
     
     useEffect(() => {
         setDataLoading(true)
-        axios.get('http://localhost:5000/categories')
+        axios.get('https://assignment-12-server-liart.vercel.app/categories')
         .then(data => {
             // console.log(data.data);
             setCategories(data.data);

@@ -5,7 +5,7 @@ const useToken = email => {
     useEffect(() => {
         if (email) {
             console.log(email);
-            fetch(`http://localhost:5000/jwt?email=${email}`)
+            fetch(`https://assignment-12-server-liart.vercel.app/jwt?email=${email}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.accessToken) {

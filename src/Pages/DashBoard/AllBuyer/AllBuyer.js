@@ -16,7 +16,7 @@ const AllBuyer = () => {
         queryKey: ['allbuyer'],
         queryFn: async () => {
             
-            const res = await fetch('http://localhost:5000/dashboard/allbuyer',{
+            const res = await fetch('https://assignment-12-server-liart.vercel.app/dashboard/allbuyer',{
                 
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -30,7 +30,7 @@ const AllBuyer = () => {
     });
 
     const handleDeleteUser = user => {
-        fetch(`http://localhost:5000/user/${user._id}`, {
+        fetch(`https://assignment-12-server-liart.vercel.app/user/${user._id}`, {
             method: 'DELETE', 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

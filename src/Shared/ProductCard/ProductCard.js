@@ -20,7 +20,7 @@ const ProductCard = ({ product, setProduct }) => {
       productId: _id,
       wishList: true
     }
-    fetch('http://localhost:5000/wishlist', {
+    fetch('https://assignment-12-server-liart.vercel.app/wishlist', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
