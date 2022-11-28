@@ -40,6 +40,10 @@ const ProductCard = ({ product, setProduct }) => {
 
   }
 
+  if(paid){
+    return <></>
+  }
+
   return (
     <div>
 
@@ -83,6 +87,7 @@ const ProductCard = ({ product, setProduct }) => {
             <label
               onClick={() => setProduct(product)}
               htmlFor="booking-modal"
+              
               className="mr-4 bg-[#02AA49] px-5 py-3 text-white hover:text-[#02AA49] hover:bg-white hover:border">Book Now</label>
 
             {

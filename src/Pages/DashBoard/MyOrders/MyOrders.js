@@ -19,8 +19,10 @@ const MyOrders = () => {
             return data;
         }
     })
-
-    console.log(orders);
+console.log(orders);
+    // if(!orders){
+    //     return <></>
+    // }
     
     return (
         <div>

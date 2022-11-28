@@ -8,11 +8,11 @@ import Loading from '../../Shared/Loading/Loading';
 
 const SellerRoute = ({children}) => {
     const {user, loading} = useContext(AuthContext);
-    const [isSeller, isAdminLoading] = useSeller(user?.email);
+    const [isSeller, isSellerLoading] = useSeller(user?.email);
     
     const location  = useLocation();
 
-    if(loading || isAdminLoading){
+    if(loading || isSellerLoading){
                 return <Loading />
             }
 

@@ -8,7 +8,11 @@ const WishlistData = () => {
     const { data: wishlist = [], refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/wishlist');
+            const res = await fetch('http://localhost:5000/wishlist', {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }

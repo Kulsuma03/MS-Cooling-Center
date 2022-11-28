@@ -2,19 +2,23 @@ import { useEffect, useState } from "react"
 
 const useSeller = email => {
     const [isSeller, setIsSeller] = useState(false);
-    const [isAdminLoading, setIsAdminLoading] = useState(true);
+    const [isSellerLoading, setIsAdminLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/users/seller/${email}`)
+            fetch(`http://localhost:5000/users/seller/${email}`, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    setIsSeller(data.isAdmin);
+                    setIsSeller(data.isSeller);
                     setIsAdminLoading(false);
                 })
         }
     }, [email])
-    return [isSeller, isAdminLoading]
+    return [isSeller, isSellerLoading]
 }
 
 export default useSeller;

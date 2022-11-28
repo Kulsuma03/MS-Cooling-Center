@@ -12,7 +12,11 @@ const Advertised = () => {
 
     useEffect(() => {
         setDataLoading(true)
-        axios.get('http://localhost:5000/advertise')
+        axios.get('http://localhost:5000/advertise', {
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then(data => {
                 // console.log(data.data);
                 setAdvertise(data.data);
